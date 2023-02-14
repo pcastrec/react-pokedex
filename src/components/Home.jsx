@@ -2,7 +2,6 @@ import React from "react"
 
 export const Accueil = () => {
 
-    const [pokemons, setPokemons] = React.useState([])
 
     // Fonction dans laquelle on va passer a l'affichage du composant
     React.useEffect(() => {
@@ -12,8 +11,23 @@ export const Accueil = () => {
             .catch(err => console.error(err))
     }, [])
 
+    // Je declare un state contenant la valeur de mon input
+    const [input, setInput] = React.useState('')
+    const [pokemons, setPokemons] = React.useState([])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <div>
+            {/* Barre de recherche pour filtre les pokemons */}
+            <form onSubmit={handleSubmit}>
+                {/* onChange est une fonction donner par React sur les balises */}
+                {/* On passe dans la fonction a chaque fois qu'on ecrit dans l'input */}
+                <input value={input} type='text' placeholder='Rechercher' onChange={e => setInput(e.target.value)} />
+                <input type={'submit'} />
+            </form>
             {/* <p>Nom: {pokemons[0]?.name}</p>
             <p>Nom: {pokemons[0]?.url}</p> */}
             {pokemons.map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon} />
@@ -47,5 +61,4 @@ const Pokemon = ({ pokemon }) => {
             <img src={detail?.sprites.front_default} />
         </>
     )
-
 }
