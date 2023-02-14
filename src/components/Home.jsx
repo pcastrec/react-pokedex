@@ -13,12 +13,13 @@ export const Accueil = () => {
 
     // Je declare un state contenant la valeur de mon input
     const [input, setInput] = React.useState('')
+    const [submit, setSubmit] = React.useState('')
     const [pokemons, setPokemons] = React.useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setSubmit(input)
     }
-
     return (
         <div>
             {/* Barre de recherche pour filtre les pokemons */}
@@ -30,7 +31,7 @@ export const Accueil = () => {
             </form>
             {/* <p>Nom: {pokemons[0]?.name}</p>
             <p>Nom: {pokemons[0]?.url}</p> */}
-            {pokemons.map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon} />
+            {pokemons.filter(pokemon => pokemon.name.includes(submit)).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon} />
                 // <div key={pokemon.name}>
                 //     <p>Nom: {pokemon.name}</p>
                 //     <p>Url: {pokemon.url}</p>
